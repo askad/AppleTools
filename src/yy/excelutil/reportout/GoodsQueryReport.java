@@ -30,14 +30,19 @@ public class GoodsQueryReport extends Report {
             cell.setCellValue(goodsQueryPoJo.getShipName());// 船名航次
             cell = row.createCell(j++);
             cell.setCellValue(goodsQueryPoJo.getWarehouse());// 入库仓库
-            cell = row.createCell(j++);
-            cell.setCellValue(goodsQueryPoJo.getDelegateCount());// 委托件数
+            Cell cellTemp = row.createCell(j++);
+            cellTemp.setCellValue(goodsQueryPoJo.getDelegateCount());// 委托件数
             cell = row.createCell(j++);
             String boxDesc = goodsQueryPoJo.getPacking();
             if (box.containsKey(boxDesc)) {
                 boxDesc = box.get(boxDesc);
-            }else{
-                boxDesc = ConstantsMap.getSpecialName(boxDesc);
+            } else {
+                Map<String, String> result = ConstantsMap.getSpecialName(boxDesc);
+                if (result != null) {
+                    String count = result.keySet().iterator().next();
+                    cellTemp.setCellValue(count);// 委托件数
+                    boxDesc = result.get(count);
+                }
             }
             cell.setCellValue(boxDesc);// 包装
             cell = row.createCell(j++);

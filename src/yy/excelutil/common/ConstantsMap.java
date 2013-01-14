@@ -22,6 +22,9 @@ public class ConstantsMap {
             BOX_DESC.put("WOODEN CASE", "木箱");
             BOX_DESC.put("BAG", "包");
             BOX_DESC.put("BOX", "盒");
+            BOX_DESC.put("ROLL", "卷");
+            BOX_DESC.put("CASE", "箱");
+            BOX_DESC.put("CRATE", "木条箱");
 
             BOX_DESC.put("CARTONS", "纸箱");
             BOX_DESC.put("PALLETS", "托盘");
@@ -30,19 +33,24 @@ public class ConstantsMap {
             BOX_DESC.put("WOODEN CASES", "木箱");
             BOX_DESC.put("BAGS", "包");
             BOX_DESC.put("BOXES", "盒");
+            BOX_DESC.put("ROLLS", "卷");
+            BOX_DESC.put("CASES", "箱");
+            BOX_DESC.put("CRATES", "木条箱");
         }
         return BOX_DESC;
     }
 
-    public static String getSpecialName(String oriName) {
+    public static Map getSpecialName(String oriName) {
+        Map<String, String> result = new HashMap<String, String>();
         if (oriName != null && !oriName.isEmpty()) {
             Matcher m = CTNS_PLTS_PT.matcher(oriName.trim());
             if (m.find()) {
-                return m.group(1)+"托";
+                result.put(m.group(1), "托");
+                return result;
             }
-            return oriName;
+            return null;
         }
-        return "";
+        return null;
     }
 
 }

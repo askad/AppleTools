@@ -115,6 +115,9 @@ public class Report {
                 int pos = Integer.parseInt(value);
                 POS_MAP.put(key, pos);
             }
+            String key = Constants.CHECK_FIELD_RQETD;
+            int pos = Integer.parseInt(resourceBundleUtil.getStringUTF8(key));
+            POS_MAP.put(key, pos);
         }
 
         return POS_MAP;

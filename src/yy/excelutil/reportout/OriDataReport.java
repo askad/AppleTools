@@ -30,20 +30,15 @@ public class OriDataReport extends Report {
 
         Map<String, Integer> posMap = getTitlePos();
         Sheet sheet = wb.getSheetAt(0);
-        boolean flag = true;
         int i = 1;
-        while (flag) {
+        while (true) {
             Row row = sheet.getRow(i);
-            if (row == null) {
+            int flag = getContinueFlag(row, posMap);
+            if (Constants.CONTINUE_BREAK == flag) {
                 break;
-            }
-            Cell cell = row.getCell(0);
-            if (cell == null) {
-                break;
-            }
-            String startFlag = cell.getStringCellValue();
-            if (startFlag == null || startFlag.isEmpty()) {
-                break;
+            } else if (Constants.CONTINUE_CONUE == flag) {
+                i++;
+                continue;
             }
             CCBillArchivePoJo ccBillArchivePoJo = new CCBillArchivePoJo();
             ccBillArchivePoJo.setSailDate(row.getCell(posMap.get(Constants.BILL_POS_ETD)).getStringCellValue());
@@ -71,20 +66,15 @@ public class OriDataReport extends Report {
         List<GoodsQueryPoJo> goodsQueryPoJoList = new ArrayList<GoodsQueryPoJo>();
         Map<String, Integer> posMap = getTitlePos();
         Sheet sheet = wb.getSheetAt(0);
-        boolean flag = true;
         int i = 1;
-        while (flag) {
+        while (true) {
             Row row = sheet.getRow(i);
-            if (row == null) {
+            int flag = getContinueFlag(row, posMap);
+            if (Constants.CONTINUE_BREAK == flag) {
                 break;
-            }
-            Cell cell = row.getCell(0);
-            if (cell == null) {
-                break;
-            }
-            String startFlag = cell.getStringCellValue();
-            if (startFlag == null || startFlag.isEmpty()) {
-                break;
+            } else if (Constants.CONTINUE_CONUE == flag) {
+                i++;
+                continue;
             }
             GoodsQueryPoJo goodsQueryPoJo = new GoodsQueryPoJo();
             goodsQueryPoJo.setBillNo(row.getCell(posMap.get(Constants.GOODS_POS_BILLNO)).getStringCellValue());// "提单号");
@@ -105,21 +95,18 @@ public class OriDataReport extends Report {
         List<WeekAllocInfoPoJo> weekAllocInfoPoJoList = new ArrayList<WeekAllocInfoPoJo>();
         Map<String, Integer> posMap = getTitlePos();
         Sheet sheet = wb.getSheetAt(0);
-        boolean flag = true;
         int i = 1;
-        while (flag) {
+        while (true) {
             Row row = sheet.getRow(i);
-            if (row == null) {
+
+            int flag = getContinueFlag(row, posMap);
+            if (Constants.CONTINUE_BREAK == flag) {
                 break;
+            } else if (Constants.CONTINUE_CONUE == flag) {
+                i++;
+                continue;
             }
-            Cell cell = row.getCell(0);
-            if (cell == null) {
-                break;
-            }
-            String startFlag = cell.getStringCellValue();
-            if (startFlag == null || startFlag.isEmpty()) {
-                break;
-            }
+
             WeekAllocInfoPoJo weekAllocInfoPoJo = new WeekAllocInfoPoJo();
             String dateStr = row.getCell(posMap.get(Constants.WEEK_POS_DATE)).getStringCellValue();
             weekAllocInfoPoJo.setDate(DateUtil.getACDate(dateStr));// 日期 月-日 排序
@@ -144,6 +131,31 @@ public class OriDataReport extends Report {
         }
         Collections.sort(weekAllocInfoPoJoList, new WeekAllocInfoComparator());
         return weekAllocInfoPoJoList;
+    }
+
+    private int getContinueFlag(Row row, Map<String, Integer> posMap) {
+        if (row == null) {
+            return Constants.CONTINUE_BREAK;
+        }
+        Cell cell = row.getCell(0);
+        if (cell == null) {
+            return Constants.CONTINUE_BREAK;
+        }
+        String startFlag = cell.getStringCellValue();
+        if (startFlag == null || startFlag.isEmpty()) {
+            return Constants.CONTINUE_BREAK;
+        }
+
+        Cell cellCheck = row.getCell(posMap.get(Constants.CHECK_FIELD_RQETD));
+        if (cellCheck != null) {
+            String content = cellCheck.getStringCellValue();
+            if (content == null || content.trim().isEmpty()) {
+                return Constants.CONTINUE_CONUE;
+            }
+        } else {
+            return Constants.CONTINUE_CONUE;
+        }
+        return Constants.CONTINUE_GO;
     }
 
     public static void main(String[] as) {

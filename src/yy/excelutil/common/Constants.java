@@ -2,6 +2,10 @@ package yy.excelutil.common;
 
 public class Constants {
 
+    public final static int CONTINUE_GO=0;
+    public final static int CONTINUE_BREAK=1;
+    public final static int CONTINUE_CONUE=2;
+
     public final static String ENCODE_UTF8="UTF-8";
     public final static String CCBILLARCHIVE_TEMPLATE = "CCBILLARCHIVE_TEMPLATE";
     public final static String CCBILLARCHIVE_DATA = "CCBILLARCHIVE_DATA";
@@ -19,6 +23,8 @@ public class Constants {
 
     public final static String MANUAL_FLAG = "MANUAL_FLAG";
     public final static String MANUAL_FLAG_Y = "Y";
+
+    public final static String CHECK_FIELD_RQETD = "要求ETD";
 
     // 开船日 进舱号 提单号 目的港 船名航次 往来单位 报关行
     public final static String BILL_POS_ETD = "报关单据存档表_开船日";
