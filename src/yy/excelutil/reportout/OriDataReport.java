@@ -85,6 +85,9 @@ public class OriDataReport extends Report {
             // goodsQueryPoJo.setArriveCount(row.getCell(32).getStringCellValue());//"到货件数");
             goodsQueryPoJo.setEtDate(row.getCell(posMap.get(Constants.GOODS_POS_ETD)).getStringCellValue());// "ETD");
             // goodsQueryPoJo.setComments(row.getCell(32).getStringCellValue());//"备注");
+            goodsQueryPoJo.setWeight(row.getCell(posMap.get(Constants.GOODS_POS_WGHT)).getStringCellValue());// 重量
+            goodsQueryPoJo.setVolume(row.getCell(posMap.get(Constants.GOODS_POS_VOLM)).getStringCellValue());// 体积
+
             goodsQueryPoJoList.add(goodsQueryPoJo);
             i++;
         }

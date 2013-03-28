@@ -46,6 +46,12 @@ public class GoodsQueryReport extends Report {
             }
             cell.setCellValue(boxDesc);// 包装
             cell = row.createCell(j++);
+
+            cell.setCellValue(goodsQueryPoJo.getWeight());// 重量
+            cell = row.createCell(j++);
+            cell.setCellValue(goodsQueryPoJo.getVolume());// 体积
+            cell = row.createCell(j++);
+
             cell.setCellValue(goodsQueryPoJo.getArriveCount());// 到货件数
             cell = row.createCell(j++);
             cell.setCellValue(goodsQueryPoJo.getEtDate());// ETD

@@ -13,6 +13,25 @@ public class GoodsQueryPoJo extends BasePoJo {
     private String etDate;// ETD
     private String comments;// 备注
 
+    private String weight;//重量
+    private String volume;//体积
+
+    public String getWeight() {
+        return weight;
+    }
+
+    public void setWeight(String weight) {
+        this.weight = weight;
+    }
+
+    public String getVolume() {
+        return volume;
+    }
+
+    public void setVolume(String volume) {
+        this.volume = volume;
+    }
+
     public String getBillNo() {
         return billNo;
     }

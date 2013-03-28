@@ -44,8 +44,10 @@ public class Constants {
     public final static String GOODS_POS_DENO = "货物查询单_委托件数";
     public final static String GOODS_POS_TYPE = "货物查询单_包装";
     public final static String GOODS_POS_ETD = "货物查询单_ETD";
+    public final static String GOODS_POS_WGHT = "货物查询单_重量";
+    public final static String GOODS_POS_VOLM = "货物查询单_体积";
     public final static String[] PROPERTY_GOODS = { GOODS_POS_BILLNO, GOODS_POS_SHIP, GOODS_POS_WAREHOUSE,
-            GOODS_POS_DENO, GOODS_POS_TYPE, GOODS_POS_ETD };
+            GOODS_POS_DENO, GOODS_POS_TYPE, GOODS_POS_ETD, GOODS_POS_WGHT, GOODS_POS_VOLM};
 
     // 日期,目的港,HB/L,lclrt,配载公司
     public final static String WEEK_POS_DATE = "每周配货情况汇报_日期";
