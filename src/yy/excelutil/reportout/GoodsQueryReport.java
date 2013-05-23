@@ -68,7 +68,10 @@ public class GoodsQueryReport extends Report {
         OriDataReport oriDataReport = new OriDataReport();
         Workbook wbRd = oriDataReport.readFile(Constants.GOODSQUERY_DATA);
         // 数据校验
-        goodsQueryReport.checkDataPos(wbRd);
+        boolean flag = goodsQueryReport.checkDataPos(wbRd);
+        if (!flag) {
+            System.out.println(Constants.WARN_CHANGE_EXCEL);
+        }
         List<GoodsQueryPoJo> goodsQueryPoJoList = oriDataReport.getGoodsQueryPoJoList(wbRd);
         oriDataReport.closeFile();
         // List<GoodsQueryPoJo> goodsQueryPoJoList = new

@@ -40,7 +40,7 @@ public class ConstantsMap {
         return BOX_DESC;
     }
 
-    public static Map getSpecialName(String oriName) {
+    public static Map<String, String> getSpecialName(String oriName) {
         Map<String, String> result = new HashMap<String, String>();
         if (oriName != null && !oriName.isEmpty()) {
             Matcher m = CTNS_PLTS_PT.matcher(oriName.trim());

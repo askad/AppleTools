@@ -31,11 +31,11 @@ public class Report {
             "财务审单人", "操作审单人", "文件审单人", "审文件", "批", "提单状态" };
 
     // 开船日 进舱号 提单号 目的港 船名航次 往来单位 报关行
-    private String[] TITLE_DESC_BILL = { "ETD", "业务编号", "M.B/L NO.", "目的港", "船名航次", "委托方", "报关行" };
+    //private String[] TITLE_DESC_BILL = { "ETD", "业务编号", "M.B/L NO.", "目的港", "船名航次", "委托方", "报关行" };
     // 提单号,船名航次,入库仓库,委托件数,包装,ETD
-    private String[] TITLE_DESC_GOODS = { "M.B/L NO.", "船名航次", "仓库", "件数", "包装", "ETD" };
+    //private String[] TITLE_DESC_GOODS = { "M.B/L NO.", "船名航次", "仓库", "件数", "包装", "ETD" };
     // 日期,目的港,HB/L,lclrt,配载公司
-    private String[] TITLE_DESC_WEEK = { "受理日期", "目的港", "M.B/L NO.", "体积", "订舱" };
+    //private String[] TITLE_DESC_WEEK = { "受理日期", "目的港", "M.B/L NO.", "体积", "订舱" };
 
     private String MSG_CHANGE_EX = "EXCEL表格有变化，请修改配置文件！出错列：";
 
@@ -43,10 +43,30 @@ public class Report {
 
     protected InputStream stream;
     protected Workbook wb;
+    private ResourceBundleUtil resourceBundleUtil;
 
     String fileName;
 
+    public Report() {
+        ResourceBundleUtil resourceBundleUtilLocal = getResourceBundleUtil();
+
+        try {
+            String manFlag = resourceBundleUtilLocal.getStringUTF8(Constants.MANUAL_FLAG);
+            if (Constants.MANUAL_FLAG_Y.equals(manFlag)) {
+                String allTitle = resourceBundleUtilLocal.getStringUTF8(Constants.ALL_TITLE_TEXT);
+                String splitSign = resourceBundleUtilLocal.getStringUTF8(Constants.SPLIT_SIGN);
+                String[] titles = allTitle.split(splitSign);
+                if (titles != null) {
+                    ALL_TITLE = titles;
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
     protected boolean checkDataPos(Workbook wb) throws Exception {
+        boolean flag = true;
         Sheet sheet = wb.getSheetAt(0);
         Row row = sheet.getRow(0);
         for (int i = 1; i < ALL_TITLE.length; i++) {
@@ -56,6 +76,11 @@ public class Report {
                 if (value != null) {
                     if (ALL_TITLE[i].equals(value.trim())) {
                     } else {
+                        String forceFlag = getResourceBundleUtil().getStringUTF8(Constants.FORCE_FLAG);
+                        flag = false;
+                        if (Constants.FORCE_FLAG_Y.equals(forceFlag)) {
+                            continue;
+                        }
                         throw new ExcelException(MSG_CHANGE_EX + value);
                     }
                 }
@@ -64,7 +89,14 @@ public class Report {
         // if (ALL_TITLE.length != j) {
         // throw new ExcelException(MSG_CHANGE_EX);
         // }
-        return true;
+        return flag;
+    }
+
+    private ResourceBundleUtil getResourceBundleUtil() {
+        if (resourceBundleUtil == null) {
+            resourceBundleUtil = ResourceBundleUtil.getInstance();
+        }
+        return resourceBundleUtil;
     }
 
     protected Workbook readFile(String templateKey) throws Exception {
@@ -121,6 +153,9 @@ public class Report {
         }
 
         return POS_MAP;
+    }
 
+    public static void main(String[] args) throws Exception {
+        new Report();
     }
 }

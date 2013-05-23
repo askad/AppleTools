@@ -24,6 +24,12 @@ public class Constants {
     public final static String MANUAL_FLAG = "MANUAL_FLAG";
     public final static String MANUAL_FLAG_Y = "Y";
 
+    public final static String FORCE_FLAG = "FORCE_FLAG";
+    public final static String FORCE_FLAG_Y = "Y";
+
+    public final static String ALL_TITLE_TEXT = "ALL_TITLE";
+    public final static String SPLIT_SIGN = "SPLIT_SIGN";
+
     public final static String CHECK_FIELD_RQETD = "要求ETD";
 
     // 开船日 进舱号 提单号 目的港 船名航次 往来单位 报关行
@@ -57,4 +63,6 @@ public class Constants {
     public final static String WEEK_POS_COER = "每周配货情况汇报_配载公司";
     public final static String[] PROPERTY_WEEK = { WEEK_POS_DATE, WEEK_POS_PORT, WEEK_POS_HBL, WEEK_POS_LCLRT,
             WEEK_POS_COER };
+
+    public final static String WARN_CHANGE_EXCEL = "EXCEL有变化!";
 }

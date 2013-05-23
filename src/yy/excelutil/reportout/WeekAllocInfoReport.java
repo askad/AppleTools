@@ -66,7 +66,10 @@ public class WeekAllocInfoReport extends Report {
         OriDataReport oriDataReport = new OriDataReport();
         Workbook wbRd = oriDataReport.readFile(Constants.WEEKALLOCINFO_DATA);
         // 数据校验
-        weekAllocInfoReport.checkDataPos(wbRd);
+        boolean flag = weekAllocInfoReport.checkDataPos(wbRd);
+        if (!flag) {
+            System.out.println(Constants.WARN_CHANGE_EXCEL);
+        }
         List<WeekAllocInfoPoJo> weekAllocInfoPoJoList = oriDataReport.getWeekAllocInfoPoJoList(wbRd);
         oriDataReport.closeFile();
         //

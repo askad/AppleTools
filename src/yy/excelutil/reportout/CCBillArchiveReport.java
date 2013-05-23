@@ -92,7 +92,8 @@ public class CCBillArchiveReport extends Report {
             cell.setCellValue(ccBillArchivePoJo.getRejectSign());// 退单签收
         }
         // 加载下拉列表内容
-        DVConstraint constraint = DVConstraint.createFormulaListConstraint("BGH");// LIST NAME
+        DVConstraint constraint = DVConstraint.createFormulaListConstraint("BGH");// LIST
+                                                                                  // NAME
         // 设置数据有效性加载在哪个单元格上,四个参数分别是：起始行、终止行、起始列、终止列
         CellRangeAddressList regions = new CellRangeAddressList(1, i, 8, 8);
         // 数据有效性对象
@@ -107,7 +108,10 @@ public class CCBillArchiveReport extends Report {
         OriDataReport oriDataReport = new OriDataReport();
         Workbook wbRd = oriDataReport.readFile(Constants.CCBILLARCHIVE_DATA);
         // 数据校验
-        ccBillArchiveReport.checkDataPos(wbRd);
+        boolean flag = ccBillArchiveReport.checkDataPos(wbRd);
+        if (!flag) {
+            System.out.println(Constants.WARN_CHANGE_EXCEL);
+        }
         List<CCBillArchivePoJo> ccBillArchivePoJoList = oriDataReport.getCCBillArchivePoJoList(wbRd);
         oriDataReport.closeFile();
         // CCBillArchivePoJo ccBillArchivePoJo = new CCBillArchivePoJo();
