@@ -13,6 +13,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 
 import yy.excelutil.common.Constants;
 import yy.excelutil.common.WeekAllocInfoComparator;
+import yy.excelutil.pojo.BookingDetailPoJo;
 import yy.excelutil.pojo.CCBillArchivePoJo;
 import yy.excelutil.pojo.GoodsQueryPoJo;
 import yy.excelutil.pojo.WeekAllocInfoPoJo;
@@ -24,6 +25,39 @@ import yy.util.DateUtil;
 public class OriDataReport extends Report {
 
     public Map<String, Integer> posSite;
+
+    public List<BookingDetailPoJo> getBookingDetailPoJoList(Workbook wb) throws Exception {
+        List<BookingDetailPoJo> bookingDetailPoJoList = new ArrayList<BookingDetailPoJo>();
+
+        Map<String, Integer> posMap = getTitlePos();
+        Sheet sheet = wb.getSheetAt(0);
+        int i = 1;
+        while (true) {
+            Row row = sheet.getRow(i);
+            int flag = getContinueFlag(row, posMap);
+            if (Constants.CONTINUE_BREAK == flag) {
+                break;
+            } else if (Constants.CONTINUE_CONUE == flag) {
+                i++;
+                continue;
+            }
+            BookingDetailPoJo bookingDetailPoJo = new BookingDetailPoJo();
+            bookingDetailPoJo.setShipName(row.getCell(posMap.get(Constants.BOOKING_POS_SHIPNAME)).getStringCellValue());// 船名
+            // bookingDetailPoJo.setShipNo(row.getCell(posMap.get(Constants.BOOKING_POS_SHIPNO)).getStringCellValue());//
+            // 航次
+            bookingDetailPoJo.setMbillNo(row.getCell(posMap.get(Constants.BOOKING_POS_MBILLNO)).getStringCellValue());// 出口拼箱准单号
+            bookingDetailPoJo.setName(row.getCell(posMap.get(Constants.BOOKING_POS_NAME)).getStringCellValue());// 货物名称
+            bookingDetailPoJo.setCount(row.getCell(posMap.get(Constants.BOOKING_POS_COUNT)).getStringCellValue());// 件数
+            bookingDetailPoJo.setPackageType(row.getCell(posMap.get(Constants.BOOKING_POS_PACKAGETYPE))
+                    .getStringCellValue());// 包装类型
+            bookingDetailPoJo.setWeight(row.getCell(posMap.get(Constants.BOOKING_POS_WEIGHT)).getStringCellValue());// 毛重
+            bookingDetailPoJo.setVolume(row.getCell(posMap.get(Constants.BOOKING_POS_VOLUME)).getStringCellValue());// 体积
+            bookingDetailPoJo.setComments(row.getCell(posMap.get(Constants.BOOKING_POS_COMMENTS)).getStringCellValue());// 备注
+            bookingDetailPoJoList.add(bookingDetailPoJo);
+            i++;
+        }
+        return bookingDetailPoJoList;
+    }
 
     public List<CCBillArchivePoJo> getCCBillArchivePoJoList(Workbook wb) throws Exception {
         List<CCBillArchivePoJo> ccBillArchivePoJoList = new ArrayList<CCBillArchivePoJo>();

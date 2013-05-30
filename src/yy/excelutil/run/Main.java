@@ -1,6 +1,7 @@
 package yy.excelutil.run;
 
 import yy.excelutil.exception.ExcelException;
+import yy.excelutil.reportout.BookingDetailReport;
 import yy.excelutil.reportout.CCBillArchiveReport;
 import yy.excelutil.reportout.GoodsQueryReport;
 import yy.excelutil.reportout.WeekAllocInfoReport;
@@ -13,6 +14,7 @@ public class Main {
                 CCBillArchiveReport.main(arg);
                 GoodsQueryReport.main(arg);
                 WeekAllocInfoReport.main(arg);
+                BookingDetailReport.main(arg);
             } catch (ExcelException e) {
                 System.out.println(e.getMsg());
             }
@@ -40,6 +42,14 @@ public class Main {
         if ("3".equals(para)) {
             try {
                 WeekAllocInfoReport.main(arg);
+            } catch (ExcelException e) {
+                System.out.println(e.getMsg());
+            }
+            return;
+        }
+        if ("4".equals(para)) {
+            try {
+                BookingDetailReport.main(arg);
             } catch (ExcelException e) {
                 System.out.println(e.getMsg());
             }

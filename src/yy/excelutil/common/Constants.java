@@ -1,12 +1,13 @@
 package yy.excelutil.common;
 
+
 public class Constants {
 
-    public final static int CONTINUE_GO=0;
-    public final static int CONTINUE_BREAK=1;
-    public final static int CONTINUE_CONUE=2;
+    public final static int CONTINUE_GO = 0;
+    public final static int CONTINUE_BREAK = 1;
+    public final static int CONTINUE_CONUE = 2;
 
-    public final static String ENCODE_UTF8="UTF-8";
+    public final static String ENCODE_UTF8 = "UTF-8";
     public final static String CCBILLARCHIVE_TEMPLATE = "CCBILLARCHIVE_TEMPLATE";
     public final static String CCBILLARCHIVE_DATA = "CCBILLARCHIVE_DATA";
 
@@ -15,6 +16,9 @@ public class Constants {
 
     public final static String WEEKALLOCINFO_TEMPLATE = "WEEKALLOCINFO_TEMPLATE";
     public final static String WEEKALLOCINFO_DATA = "WEEKALLOCINFO_DATA";
+
+    public final static String BOOKINGDETAIL_TEMPLATE = "BOOKINGDETAIL_TEMPLATE";
+    public final static String BOOKINGDETAIL_DATA = "BOOKINGDETAIL_DATA";
 
     public final static String OUTPUT_PATH = "OUTPUT_PATH";
     public final static String CONFIG_PATH = "config";
@@ -53,7 +57,7 @@ public class Constants {
     public final static String GOODS_POS_WGHT = "货物查询单_重量";
     public final static String GOODS_POS_VOLM = "货物查询单_体积";
     public final static String[] PROPERTY_GOODS = { GOODS_POS_BILLNO, GOODS_POS_SHIP, GOODS_POS_WAREHOUSE,
-            GOODS_POS_DENO, GOODS_POS_TYPE, GOODS_POS_ETD, GOODS_POS_WGHT, GOODS_POS_VOLM};
+            GOODS_POS_DENO, GOODS_POS_TYPE, GOODS_POS_ETD, GOODS_POS_WGHT, GOODS_POS_VOLM };
 
     // 日期,目的港,HB/L,lclrt,配载公司
     public final static String WEEK_POS_DATE = "每周配货情况汇报_日期";
@@ -64,5 +68,19 @@ public class Constants {
     public final static String[] PROPERTY_WEEK = { WEEK_POS_DATE, WEEK_POS_PORT, WEEK_POS_HBL, WEEK_POS_LCLRT,
             WEEK_POS_COER };
 
-    public final static String WARN_CHANGE_EXCEL = "EXCEL有变化!";
+    // 船名,航次,出口拼箱准单号,货物名称,件数,包装类型,毛重,体积,备注
+    public final static String BOOKING_POS_SHIPNAME = "装箱委托明细_船名";
+    public final static String BOOKING_POS_SHIPNO = "装箱委托明细_航次";
+    public final static String BOOKING_POS_MBILLNO = "装箱委托明细_出口拼箱准单号";
+    public final static String BOOKING_POS_NAME = "装箱委托明细_货物名称";
+    public final static String BOOKING_POS_COUNT = "装箱委托明细_件数";
+    public final static String BOOKING_POS_PACKAGETYPE = "装箱委托明细_包装类型";
+    public final static String BOOKING_POS_WEIGHT = "装箱委托明细_毛重";
+    public final static String BOOKING_POS_VOLUME = "装箱委托明细_体积";
+    public final static String BOOKING_POS_COMMENTS = "装箱委托明细_备注";
+    public final static String[] PROPERTY_BOOKING = { BOOKING_POS_SHIPNAME, BOOKING_POS_SHIPNO, BOOKING_POS_MBILLNO,
+            BOOKING_POS_NAME, BOOKING_POS_COUNT, BOOKING_POS_PACKAGETYPE, BOOKING_POS_WEIGHT, BOOKING_POS_VOLUME,
+            BOOKING_POS_COMMENTS };
+
+    public final static String WARN_CHANGE_EXCEL = "EXCEL was changed!";
 }
