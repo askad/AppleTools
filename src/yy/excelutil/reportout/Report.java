@@ -113,7 +113,19 @@ public class Report {
         return wb;
     }
 
-    protected void writeFile(String outputPath) throws Exception {
+    public Workbook reopenForReCalc(String tempPath) throws Exception {
+        File f = new File(tempPath);
+        fileName = f.getName();
+        stream = new FileInputStream(f);
+        wb = WorkbookFactory.create(stream);
+        wb.getSheetAt(0).setForceFormulaRecalculation(true);
+        wb.getCreationHelper().createFormulaEvaluator().evaluateAll();
+        wb.setForceFormulaRecalculation(true);
+
+        return wb;
+    }
+
+    protected String writeFile(String outputPath) throws Exception {
 
         ResourceBundleUtil resourceBundleUtil = ResourceBundleUtil.getInstance();
         String output = resourceBundleUtil.getStringUTF8(outputPath);
@@ -121,6 +133,7 @@ public class Report {
         wb.write(fileOutputStream);
         fileOutputStream.close();
         stream.close();
+        return output + fileName;
     }
 
     protected void closeFile() throws Exception {
@@ -152,6 +165,12 @@ public class Report {
             }
             for (int i = 0; i < Constants.PROPERTY_BOOKING.length; i++) {
                 String key = Constants.PROPERTY_BOOKING[i];
+                String value = resourceBundleUtil.getStringUTF8(key);
+                int pos = Integer.parseInt(value);
+                POS_MAP.put(key, pos);
+            }
+            for (int i = 0; i < Constants.PROPERTY_ARRIVED.length; i++) {
+                String key = Constants.PROPERTY_ARRIVED[i];
                 String value = resourceBundleUtil.getStringUTF8(key);
                 int pos = Integer.parseInt(value);
                 POS_MAP.put(key, pos);

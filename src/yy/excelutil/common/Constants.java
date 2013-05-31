@@ -1,6 +1,5 @@
 package yy.excelutil.common;
 
-
 public class Constants {
 
     public final static int CONTINUE_GO = 0;
@@ -19,6 +18,9 @@ public class Constants {
 
     public final static String BOOKINGDETAIL_TEMPLATE = "BOOKINGDETAIL_TEMPLATE";
     public final static String BOOKINGDETAIL_DATA = "BOOKINGDETAIL_DATA";
+
+    public final static String ARRIVED_TEMPLATE = "ARRIVED_TEMPLATE";
+    public final static String ARRIVED_DATA = "ARRIVED_DATA";
 
     public final static String OUTPUT_PATH = "OUTPUT_PATH";
     public final static String CONFIG_PATH = "config";
@@ -81,6 +83,17 @@ public class Constants {
     public final static String[] PROPERTY_BOOKING = { BOOKING_POS_SHIPNAME, BOOKING_POS_SHIPNO, BOOKING_POS_MBILLNO,
             BOOKING_POS_NAME, BOOKING_POS_COUNT, BOOKING_POS_PACKAGETYPE, BOOKING_POS_WEIGHT, BOOKING_POS_VOLUME,
             BOOKING_POS_COMMENTS };
+
+    // 运输工具名称,航次,提运单号,件数,毛重,品名
+    public final static String ARRIVED_POS_SHIPNAME = "运抵_船名";
+    public final static String ARRIVED_POS_SHIPNO = "运抵_航次";
+    public final static String ARRIVED_POS_MBILLNO = "运抵_提运单号";
+    public final static String ARRIVED_POS_COUNT = "运抵_件数";
+    public final static String ARRIVED_POS_WEIGHT = "运抵_毛重";
+    public final static String ARRIVED_POS_NAME = "运抵_品名";
+
+    public final static String[] PROPERTY_ARRIVED = { ARRIVED_POS_SHIPNAME, ARRIVED_POS_SHIPNO, ARRIVED_POS_MBILLNO,
+            ARRIVED_POS_COUNT, ARRIVED_POS_WEIGHT, ARRIVED_POS_NAME, };
 
     public final static String WARN_CHANGE_EXCEL = "EXCEL was changed!";
 }

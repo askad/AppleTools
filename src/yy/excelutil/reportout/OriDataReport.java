@@ -13,6 +13,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 
 import yy.excelutil.common.Constants;
 import yy.excelutil.common.WeekAllocInfoComparator;
+import yy.excelutil.pojo.ArrivedPoJo;
 import yy.excelutil.pojo.BookingDetailPoJo;
 import yy.excelutil.pojo.CCBillArchivePoJo;
 import yy.excelutil.pojo.GoodsQueryPoJo;
@@ -25,6 +26,36 @@ import yy.util.DateUtil;
 public class OriDataReport extends Report {
 
     public Map<String, Integer> posSite;
+
+    public List<ArrivedPoJo> getArrivedPoJoList(Workbook wb) throws Exception {
+        List<ArrivedPoJo> arrivedPoJoList = new ArrayList<ArrivedPoJo>();
+
+        Map<String, Integer> posMap = getTitlePos();
+        Sheet sheet = wb.getSheetAt(0);
+        int i = 1;
+        while (true) {
+            Row row = sheet.getRow(i);
+            int flag = getContinueFlag(row, posMap);
+            if (Constants.CONTINUE_BREAK == flag) {
+                break;
+            } else if (Constants.CONTINUE_CONUE == flag) {
+                i++;
+                continue;
+            }
+            ArrivedPoJo arrivedPoJo = new ArrivedPoJo();
+            arrivedPoJo.setShipName(row.getCell(posMap.get(Constants.ARRIVED_POS_SHIPNAME)).getStringCellValue());// 船名
+            // arrivedPoJo.setShipNo(row.getCell(posMap.get(Constants.ARRIVED_POS_SHIPNO)).getStringCellValue());//
+            // 航次
+            arrivedPoJo.setMbillNo(row.getCell(posMap.get(Constants.ARRIVED_POS_MBILLNO)).getStringCellValue());// 提运单号
+            arrivedPoJo.setCount(row.getCell(posMap.get(Constants.ARRIVED_POS_COUNT)).getStringCellValue());// 件数
+            arrivedPoJo.setWeight(row.getCell(posMap.get(Constants.ARRIVED_POS_WEIGHT)).getStringCellValue());// 毛重
+            arrivedPoJo.setName(row.getCell(posMap.get(Constants.ARRIVED_POS_NAME)).getStringCellValue());// 品名
+
+            arrivedPoJoList.add(arrivedPoJo);
+            i++;
+        }
+        return arrivedPoJoList;
+    }
 
     public List<BookingDetailPoJo> getBookingDetailPoJoList(Workbook wb) throws Exception {
         List<BookingDetailPoJo> bookingDetailPoJoList = new ArrayList<BookingDetailPoJo>();
