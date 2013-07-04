@@ -27,6 +27,13 @@ public class OriDataReport extends Report {
 
     public Map<String, Integer> posSite;
 
+    /**
+     * 运抵
+     * 
+     * @param wb
+     * @return
+     * @throws Exception
+     */
     public List<ArrivedPoJo> getArrivedPoJoList(Workbook wb) throws Exception {
         List<ArrivedPoJo> arrivedPoJoList = new ArrayList<ArrivedPoJo>();
 
@@ -54,6 +61,7 @@ public class OriDataReport extends Report {
             arrivedPoJoList.add(arrivedPoJo);
             i++;
         }
+        // Collections.sort(arrivedPoJoList, new ArrivedInfoComparator());
         return arrivedPoJoList;
     }
 

@@ -7,10 +7,19 @@ package yy.excelutil.pojo;
 public class ArrivedPoJo extends BasePoJo {
     private String shipName;// 船名
     private String shipNo;// 航次
+    private String mSeabillNo;// 海运提单号
     private String mbillNo;// 提运单号
     private String count;// 件数
     private String weight;// 毛重
     private String name;// 品名
+
+    public String getmSeabillNo() {
+        return mSeabillNo;
+    }
+
+    public void setmSeabillNo(String mSeabillNo) {
+        this.mSeabillNo = mSeabillNo;
+    }
 
     public String getShipName() {
         return shipName;

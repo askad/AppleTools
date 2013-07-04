@@ -1,7 +1,9 @@
 package yy.excelutil.reportout;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -12,7 +14,6 @@ import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.ss.util.CellRangeAddress;
 
 import yy.excelutil.common.Constants;
 import yy.excelutil.pojo.ArrivedPoJo;
@@ -25,6 +26,13 @@ public class ArrivedReport extends Report {
 
     private static String SHIP_INFO = "(.*?) V.(.*)";
     private static Pattern SHIP_INFO_PT = Pattern.compile(SHIP_INFO);
+    private String sbl;
+    private String[] SBL_SUFFIX = { "", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P",
+            "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" };
+
+    public ArrivedReport(String _sbl) {
+        sbl = _sbl;
+    }
 
     public void writeReport(List<ArrivedPoJo> arrivedPoJoList, Workbook wb) throws Exception {
         Font headerFont = wb.createFont(); // 字体
@@ -45,46 +53,53 @@ public class ArrivedReport extends Report {
         int i = 0;
         for (; i < arrivedPoJoList.size(); i++) {
             ArrivedPoJo arrivedPoJo = arrivedPoJoList.get(i);
-
+            int j = 0;
             List<String> shipNameNo = getShipInfo(arrivedPoJo.getShipName());
             Row row = sheet.createRow(i + 1);
-            Cell cell = row.createCell(0);
+            Cell cell = row.createCell(j++);
             cell.setCellStyle(cellStyle);
             cell.setCellValue(shipNameNo.get(0));// 船名
-            cell = row.createCell(1);
+
+            cell = row.createCell(j++);
             cell.setCellStyle(cellStyle);
             cell.setCellValue(shipNameNo.get(1));// 航次
 
-            cell = row.createCell(2);
+            cell = row.createCell(j++);
+            cell.setCellStyle(cellStyle);
+            cell.setCellValue(sbl + SBL_SUFFIX[i]);// 海运提单号
+
+            cell = row.createCell(j++);
             cell.setCellStyle(cellStyle);
             cell.setCellValue(arrivedPoJo.getMbillNo());// 提运单号
 
-            cell = row.createCell(3);
+            cell = row.createCell(j++);
             cell.setCellStyle(cellStyle);
 
-            cell = row.createCell(4);
+            cell = row.createCell(j++);
             cell.setCellStyle(cellStyle);
             cell.setCellType(HSSFCell.CELL_TYPE_NUMERIC);
             cell.setCellValue(Integer.parseInt(arrivedPoJo.getCount()));// 件数
 
-            cell = row.createCell(5);
+            cell = row.createCell(j++);
             cell.setCellStyle(cellStyle);
             cell.setCellType(HSSFCell.CELL_TYPE_NUMERIC);
             cell.setCellValue(new Double(arrivedPoJo.getWeight()));// 毛重
-//            Double doubleValue = cell.getNumericCellValue();
-//            if (!arrivedPoJo.getWeight().equals(doubleValue.toString())) {
-//                cell.setCellValue(arrivedPoJo.getWeight());
-//            }
+            // Double doubleValue = cell.getNumericCellValue();
+            // if (!arrivedPoJo.getWeight().equals(doubleValue.toString())) {
+            // cell.setCellValue(arrivedPoJo.getWeight());
+            // }
 
-            cell = row.createCell(6);
+            cell = row.createCell(j++);
             cell.setCellStyle(cellStyle);
             cell.setCellValue(arrivedPoJo.getName());// 品名
 
-            cell = row.createCell(7);
+            cell = row.createCell(j++);
             cell.setCellStyle(cellStyle);
             cell.setCellValue("USA");// 目的地
         }
         i++;
+        // /////////////////////total
+        // row///////////////////////////////////////////////////////////////////////////
         Row row = sheet.createRow(i);
         Cell cell = row.createCell(0);
         cell.setCellStyle(cellStyleTotals);
@@ -100,42 +115,68 @@ public class ArrivedReport extends Report {
         cell.setCellStyle(cellStyle);
 
         cell = row.createCell(4);
-        cell.setCellStyle(cellStyleTotals);
-        // cell.setCellType(HSSFCell.CELL_TYPE_FORMULA);
-        cell.setCellFormula("SUM(E2:E" + i + ")");// 件数
+        cell.setCellStyle(cellStyle);
 
         cell = row.createCell(5);
         cell.setCellStyle(cellStyleTotals);
         // cell.setCellType(HSSFCell.CELL_TYPE_FORMULA);
-        cell.setCellFormula("SUM(F2:F" + i + ")");// 毛重
+        cell.setCellFormula("SUM(F2:F" + i + ")");// 件数
 
         cell = row.createCell(6);
         cell.setCellStyle(cellStyleTotals);
+        // cell.setCellType(HSSFCell.CELL_TYPE_FORMULA);
+        cell.setCellFormula("SUM(G2:G" + i + ")");// 毛重
 
-        for (int j = i + 1; j < i + 4; j++) {
-            row = sheet.createRow(j);
-            cell = row.createCell(0);
-            cell.setCellStyle(cellStyleTotals);
+        cell = row.createCell(7);
+        cell.setCellStyle(cellStyleTotals);
 
-            cell = row.createCell(1);
-            cell.setCellStyle(cellStyle);
+        cell = row.createCell(8);
+        cell.setCellStyle(cellStyle);
+        // ///////////////////////////////////////////////////////////////
 
-            cell = row.createCell(2);
-            cell.setCellStyle(cellStyle);
+        // ///////////////////////////////////info
+        // row///////////////////////////
+        row = sheet.createRow(i + 4);
+        cell = row.createCell(6);
+        cell.setCellStyle(cellStyle);
+        cell.setCellValue("主提单号：");// 主提单号：
 
-            cell = row.createCell(3);
-            cell.setCellStyle(cellStyle);
+        cell = row.createCell(7);
+        cell.setCellStyle(cellStyle);
+        cell.setCellValue(sbl);
 
-            cell = row.createCell(4);
-            cell.setCellStyle(cellStyle);
+        row = sheet.createRow(i + 5);
+        cell = row.createCell(6);
+        cell.setCellStyle(cellStyle);
+        cell.setCellValue("箱号:");// 主提单号：
 
-            cell = row.createCell(5);
-            cell.setCellStyle(cellStyle);
+        cell = row.createCell(7);
+        cell.setCellStyle(cellStyle);
 
-            cell = row.createCell(6);
-            cell.setCellStyle(cellStyle);
-        }
-        sheet.addMergedRegion(new CellRangeAddress(i + 1, i + 3, 5, 6));
+        // for (int k = i + 1; k < i + 4; k++) {
+        // row = sheet.createRow(k);
+        // cell = row.createCell(0);
+        // cell.setCellStyle(cellStyleTotals);
+        //
+        // cell = row.createCell(1);
+        // cell.setCellStyle(cellStyle);
+        //
+        // cell = row.createCell(2);
+        // cell.setCellStyle(cellStyle);
+        //
+        // cell = row.createCell(3);
+        // cell.setCellStyle(cellStyle);
+        //
+        // cell = row.createCell(4);
+        // cell.setCellStyle(cellStyle);
+        //
+        // cell = row.createCell(5);
+        // cell.setCellStyle(cellStyle);
+        //
+        // cell = row.createCell(6);
+        // cell.setCellStyle(cellStyle);
+        // }
+        // sheet.addMergedRegion(new CellRangeAddress(i + 1, i + 3, 6, 7));
         wb.getSheetAt(0).setForceFormulaRecalculation(true);
     }
 
@@ -150,7 +191,13 @@ public class ArrivedReport extends Report {
     }
 
     public static void main(String[] arg) throws Exception {
-        ArrivedReport arrivedReport = new ArrivedReport();
+
+        InputStream is = System.in;
+        Scanner scan = new Scanner(is);
+        // 这段代码用来读取键盘输入的字符串
+        System.out.println("Pls input the B/L No:");
+        String name = scan.next();
+        ArrivedReport arrivedReport = new ArrivedReport(name);
         Workbook wb = arrivedReport.readFile(Constants.ARRIVED_TEMPLATE);
 
         OriDataReport oriDataReport = new OriDataReport();

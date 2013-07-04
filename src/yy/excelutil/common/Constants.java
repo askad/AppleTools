@@ -96,4 +96,5 @@ public class Constants {
             ARRIVED_POS_COUNT, ARRIVED_POS_WEIGHT, ARRIVED_POS_NAME, };
 
     public final static String WARN_CHANGE_EXCEL = "EXCEL was changed!";
+    public final static String ERROR_MISSED_EXCEL = "Pls input the B/L No.!";
 }
