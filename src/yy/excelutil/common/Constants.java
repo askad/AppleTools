@@ -22,6 +22,17 @@ public class Constants {
     public final static String ARRIVED_TEMPLATE = "ARRIVED_TEMPLATE";
     public final static String ARRIVED_DATA = "ARRIVED_DATA";
 
+    public final static String QUOTEBILL_TEMPDATA = "QUOTEBILL_TEMPDATA";
+    public final static String QUOTEBILL_TEMPDATA_STARTLINE = "QUOTEBILL_STARTLINE";
+
+    public final static String QUOTEBILL_TOTALS_USD = "QUOTEBILL_TOTALS_USD";
+    public final static String QUOTEBILL_TOTALS_AUD = "QUOTEBILL_TOTALS_AUD";
+    public final static String QUOTEBILL_TOTALS_FINAL = "QUOTEBILL_TOTALS_FINAL";
+    public final static String QUOTEBILL_TOTALS_REFUND = "QUOTEBILL_TOTALS_REFUND";
+
+    public final static String QUOTEBILL_CUR_USD = "USD";
+    public final static String QUOTEBILL_CUR_AUD = "AUD";
+
     public final static String OUTPUT_PATH = "OUTPUT_PATH";
     public final static String CONFIG_PATH = "config";
 
@@ -96,5 +107,7 @@ public class Constants {
             ARRIVED_POS_COUNT, ARRIVED_POS_WEIGHT, ARRIVED_POS_NAME, };
 
     public final static String WARN_CHANGE_EXCEL = "EXCEL was changed!";
+    public final static String ERROR_MISSED_QUOTE_EXCEL = "Pls input all the required data!";
+    public final static String ERROR_DATA_QUOTE_EXCEL = "The data is not correct!";
     public final static String ERROR_MISSED_EXCEL = "Pls input the B/L No.!";
 }

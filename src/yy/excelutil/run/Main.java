@@ -1,5 +1,6 @@
 package yy.excelutil.run;
 
+import yy.excelutil.billout.QuoteBill;
 import yy.excelutil.exception.ExcelException;
 import yy.excelutil.reportout.ArrivedReport;
 import yy.excelutil.reportout.BookingDetailReport;
@@ -60,6 +61,14 @@ public class Main {
         if ("5".equals(para)) {
             try {
                 ArrivedReport.main(arg);
+            } catch (ExcelException e) {
+                System.out.println(e.getMsg());
+            }
+            return;
+        }
+        if ("6".equals(para)) {
+            try {
+                QuoteBill.main(arg);
             } catch (ExcelException e) {
                 System.out.println(e.getMsg());
             }
